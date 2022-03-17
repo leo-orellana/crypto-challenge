@@ -1,0 +1,46 @@
+<div class="container">
+    <h2>Exchanges</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form">
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Currency</mat-label>
+                <mat-select formControlName="Currency">
+                    <mat-option *ngFor="let currency of currencies" [value]="currency.value">
+                        {{currency.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="submitted && f['Currency'].errors && f['Currency'].errors['required']">Currency is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Amount: </mat-label>
+                <input matInput formControlName="Amount" type="number">
+                <mat-error *ngIf="submitted && f['Amount'].errors && f['Amount'].errors['required']">Amount is required</mat-error>
+                <mat-error *ngIf="submitted && f['Amount'].errors && f['Amount'].errors['min']">Amount must be greater than 0</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="button-container">
+            <button mat-raised-button color="primary" class="button" type="submit">Exchange</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <div *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="apiError">
+        <span class="api-error-message">An error has occurred while communicating with the server</span>
+    </div>
+    <div *ngIf="isVisible">
+        <h3>Prices</h3>
+        <div>
+            <li *ngFor="let exchange of exchanges">
+                <span style="font-weight: bold;">{{exchange.name}}</span> : <span>{{exchange.price}}</span>
+            </li>
+        </div>
+    </div>
+</div>
+

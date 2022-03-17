@@ -1,0 +1,14 @@
+<div class="container">
+    <h2>Quotes</h2>
+    <div *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="apiError">
+        <span class="api-error-message">An error has occurred while communicating with the server.</span>
+    </div>
+    <div *ngIf="isVisible">
+        <li *ngFor="let quote of quotes">
+            <span style="font-weight: bold;">{{quote.name}}</span> : u$s <span>{{quote.price}}</span>
+        </li>
+    </div>
+</div>
